@@ -110,6 +110,48 @@
   dependencies:
     tslib "^2.3.1"
 
+"@aws-sdk/client-mediaconvert@^3.209.0":
+  version "3.209.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-mediaconvert/-/client-mediaconvert-3.209.0.tgz#1a081ac1515a83c85d6b4ae440dd4a99863060e9"
+  integrity sha512-Z4Z4FZqyUAyMw05ebkzHGHzyvQVqUWPBiRf68dcAnDmnoHYc+e+PQZ/isBsCJmPcR5NRo9ekC7nrulXXyCoOXg==
+  dependencies:
+    "@aws-crypto/sha256-browser" "2.0.0"
+    "@aws-crypto/sha256-js" "2.0.0"
+    "@aws-sdk/client-sts" "3.209.0"
+    "@aws-sdk/config-resolver" "3.209.0"
+    "@aws-sdk/credential-provider-node" "3.209.0"
+    "@aws-sdk/fetch-http-handler" "3.208.0"
+    "@aws-sdk/hash-node" "3.208.0"
+    "@aws-sdk/invalid-dependency" "3.208.0"
+    "@aws-sdk/middleware-content-length" "3.208.0"
+    "@aws-sdk/middleware-endpoint" "3.208.0"
+    "@aws-sdk/middleware-host-header" "3.208.0"
+    "@aws-sdk/middleware-logger" "3.208.0"
+    "@aws-sdk/middleware-recursion-detection" "3.208.0"
+    "@aws-sdk/middleware-retry" "3.209.0"
+    "@aws-sdk/middleware-serde" "3.208.0"
+    "@aws-sdk/middleware-signing" "3.208.0"
+    "@aws-sdk/middleware-stack" "3.208.0"
+    "@aws-sdk/middleware-user-agent" "3.208.0"
+    "@aws-sdk/node-config-provider" "3.209.0"
+    "@aws-sdk/node-http-handler" "3.208.0"
+    "@aws-sdk/protocol-http" "3.208.0"
+    "@aws-sdk/smithy-client" "3.209.0"
+    "@aws-sdk/types" "3.208.0"
+    "@aws-sdk/url-parser" "3.208.0"
+    "@aws-sdk/util-base64" "3.208.0"
+    "@aws-sdk/util-body-length-browser" "3.188.0"
+    "@aws-sdk/util-body-length-node" "3.208.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.209.0"
+    "@aws-sdk/util-defaults-mode-node" "3.209.0"
+    "@aws-sdk/util-endpoints" "3.209.0"
+    "@aws-sdk/util-user-agent-browser" "3.208.0"
+    "@aws-sdk/util-user-agent-node" "3.209.0"
+    "@aws-sdk/util-utf8-browser" "3.188.0"
+    "@aws-sdk/util-utf8-node" "3.208.0"
+    tslib "^2.3.1"
+    uuid "^8.3.2"
+
 "@aws-sdk/client-s3@3.209.0":
   version "3.209.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.209.0.tgz#f76ac6233bbdf9b2ee27d87005b04a5c1b8d1a60"
@@ -1632,6 +1674,21 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
+camelcase-keys@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-8.0.2.tgz#a7140ba7c797aea32161d4ce5cdbda11d09eb414"
+  integrity sha512-qMKdlOfsjlezMqxkUGGMaWWs17i2HoL15tM+wtx8ld4nLrUwU58TFdvyGOz/piNP842KeO8yXvggVQSdQ828NA==
+  dependencies:
+    camelcase "^7.0.0"
+    map-obj "^4.3.0"
+    quick-lru "^6.1.1"
+    type-fest "^2.13.0"
+
+camelcase@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-7.0.0.tgz#fd112621b212126741f998d614cbc2a8623fd174"
+  integrity sha512-JToIvOmz6nhGsUhAYScbo2d6Py5wojjNfoxoc2mEVLUdJ70gJK2gnd+ABY1Tc3sVMyK7QDPtN0T/XdlCQWITyQ==
+
 caniuse-lite@^1.0.30001406:
   version "1.0.30001431"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001431.tgz#e7c59bd1bc518fae03a4656be442ce6c4887a795"
@@ -2587,6 +2644,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+map-obj@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
+  integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
+
 merge2@^1.3.0, merge2@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
@@ -2850,6 +2912,11 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+quick-lru@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-6.1.1.tgz#f8e5bf9010376c126c80c1a62827a526c0e60adf"
+  integrity sha512-S27GBT+F0NTRiehtbrgaSE1idUAJ5bX8dPAQTdylEyNlrdcH5X4Lz7Edz3DYzecbsCluD5zO8ZNEe04z3D3u6Q==
 
 react-device-detect@2.2.2:
   version "2.2.2"
@@ -3182,6 +3249,11 @@ type-fest@^0.20.2:
   version "0.20.2"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
   integrity sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==
+
+type-fest@^2.13.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.19.0.tgz#88068015bb33036a598b952e55e9311a60fd3a9b"
+  integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
 
 typescript@4.8.4:
   version "4.8.4"

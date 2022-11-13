@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { ListObjectsCommand } from "@aws-sdk/client-s3";
+import { listBucketObjects } from "../../libs/s3Utils";
 
-import { s3Client } from "../libs/s3Client";
-import { listBucketObjects } from "../libs/s3Utils";
+import { isAVideo } from "../../../constants/regex";
 
 type mappedObjectList = {
   name: string | undefined;
@@ -18,7 +17,9 @@ export default async function handler(
   res: NextApiResponse<mappedObjectList[]>
 ) {
   try {
-    const bucketParams = { bucketName: process.env.S3_BUCKET_NAME || "" };
+    const { id } = req.query;
+
+    const bucketParams = { bucketName: id?.toString() || "" };
 
     const data = await listBucketObjects(bucketParams);
 
@@ -29,10 +30,12 @@ export default async function handler(
         size: file.Size,
         owner: file.Owner?.DisplayName,
         bucket: data.Name,
-      })) || [];
+      })).filter((file) => isAVideo.test(file?.name || "")) || [];
 
     res.status(200).json(files);
   } catch (err) {
+    // Improve error handling for this request when bucket doesn't exist
     console.log("Error", err);
+    res.status(200).json([]);
   }
 }

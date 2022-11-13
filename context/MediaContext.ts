@@ -1,10 +1,15 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
+
+import { AWSBucket } from "../pages/api/types/AWSBucket";
+import { AWSS3Object } from "../pages/api/types/AWSS3Object";
 
 type MediaContextType = {
-  buckets?: any;
-  getBuckets?: any;
-  selectedOption?: any;
-  setSelectedOption?: any;
+  buckets?: AWSBucket[];
+  files?: AWSS3Object[];
+  getBuckets?: () => void;
+  getFiles?: (bucketName: string) => void;
+  selectedOption?: string | undefined;
+  setSelectedOption?: Dispatch<SetStateAction<string>>;
 };
 
 const MediaContext = React.createContext<MediaContextType>({});
