@@ -35,7 +35,7 @@ export default async function handler(
     res.status(200).json(files);
   } catch (err) {
     // Improve error handling for this request when bucket doesn't exist
-    console.log("Error", err);
+    console.error("Error", err);
     res.status(200).json([]);
   }
 }

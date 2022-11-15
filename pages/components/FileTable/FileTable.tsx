@@ -5,16 +5,40 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import Checkbox from "@mui/material/Checkbox";
 
-import Table from "../../components/Table/Table";
+import Table, { TableItem } from "../../components/Table/Table";
+import Modal from "../Modal/Modal";
 
 import MediaContext from "../../../context/MediaContext";
 import { formatBytes } from "../../utils/utils";
 
+const RESOLUTIONS = ["1280x536", "1200x720", "960x720"];
+
+const STREAMING_PROTOCOLS = ["Dash", "HLS"];
+
 export default function TemporaryDrawer() {
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [resolutions, setResolutions] = React.useState<string[]>([]);
+
+  const [protocols, setProtocols] = React.useState<string[]>([]);
+  const [selectedVideo, setSelectedVideo] = React.useState<TableItem>();
+
   const [bucket, setBucket] = React.useState<string>("");
-  const { getBuckets, buckets, files, getFiles } =
-    React.useContext(MediaContext);
+
+  const {
+    getBuckets,
+    buckets,
+    files,
+    getFiles,
+    loading,
+    convertFile,
+    convertStatus,
+    setConvertStatus,
+  } = React.useContext(MediaContext);
 
   const handleChange = React.useCallback(
     (event: SelectChangeEvent<typeof bucket>) => {
@@ -25,6 +49,44 @@ export default function TemporaryDrawer() {
       setBucket(value);
     },
     []
+  );
+
+  const onProtocolsChange = React.useCallback(
+    (event: any) => {
+      const value = event.target.value;
+
+      if (protocols.includes(value)) {
+        setProtocols((state) => {
+          return state.filter((item) => item !== value);
+        });
+
+        return;
+      }
+
+      setProtocols((state) => {
+        return [...state, value];
+      });
+    },
+    [protocols]
+  );
+
+  const onResolutionsChange = React.useCallback(
+    (event: any) => {
+      const value = event.target.value;
+
+      if (resolutions.includes(value)) {
+        setResolutions((state) => {
+          return state.filter((item) => item !== value);
+        });
+
+        return;
+      }
+
+      setResolutions((state) => {
+        return [...state, value];
+      });
+    },
+    [resolutions]
   );
 
   React.useEffect(() => getBuckets, []);
@@ -41,12 +103,31 @@ export default function TemporaryDrawer() {
     }
   }, [bucket]);
 
+  const onCloseModal = React.useCallback(() => {
+    if (loading) {
+      return;
+    }
+
+    if (convertStatus) {
+      setConvertStatus?.(null);
+    }
+
+    setOpenModal(false);
+  }, [loading, setConvertStatus]);
+
   const onConvertElement = React.useCallback((data: any) => {
-    console.log(
-      "🚀 ~ file: FileTable.tsx ~ line 45 ~ onConvertElement ~ data",
-      data
-    );
+    setSelectedVideo(data);
+    setOpenModal(true);
   }, []);
+
+  const startConvertion = React.useCallback(() => {
+    convertFile?.({
+      resolutions,
+      protocols,
+      videoName: selectedVideo?.name || "",
+      bucketName: selectedVideo?.bucket || "",
+    });
+  }, [selectedVideo?.name, selectedVideo?.bucket, resolutions, protocols]);
 
   const columns = [
     { id: "name", label: "Name", minWidth: 170 },
@@ -106,8 +187,73 @@ export default function TemporaryDrawer() {
         </Select>
       </FormControl>
 
-      {/* @ts-expect-error */}
+      {/* @ts-expect-error check types */}
       <Table columns={columns} items={files} />
+
+      <Modal
+        open={openModal}
+        onClose={onCloseModal}
+        titleActionButton="Start conversion"
+        onClickActionButton={startConvertion}
+        modalTitle="Start video conversion"
+        loading={loading}
+        disableButton={loading || !resolutions.length || !protocols.length}
+      >
+        <div className="confirmation-message">
+          You are about to convert this file <span>{selectedVideo?.name}</span>,
+          please select the following options
+        </div>
+
+        <div className="options-container">
+          <FormControl
+            className="options"
+            component="fieldset"
+            variant="standard"
+          >
+            <FormLabel component="legend">Select the resolution</FormLabel>
+            <FormGroup>
+              {RESOLUTIONS.map((item) => (
+                <FormControlLabel
+                  key={item}
+                  control={
+                    <Checkbox
+                      onChange={onResolutionsChange}
+                      value={item}
+                      name="resolutions"
+                    />
+                  }
+                  label={item}
+                />
+              ))}
+            </FormGroup>
+          </FormControl>
+
+          <FormControl
+            className="options"
+            component="fieldset"
+            variant="standard"
+          >
+            <FormLabel component="legend">
+              Select the streaming protocol
+            </FormLabel>
+            <FormGroup>
+              {STREAMING_PROTOCOLS.map((item) => (
+                <FormControlLabel
+                  key={item}
+                  control={
+                    <Checkbox
+                      onChange={onProtocolsChange}
+                      value={item}
+                      name="protocols"
+                    />
+                  }
+                  label={item}
+                />
+              ))}
+            </FormGroup>
+          </FormControl>
+        </div>
+      </Modal>
     </React.Fragment>
   );
 }

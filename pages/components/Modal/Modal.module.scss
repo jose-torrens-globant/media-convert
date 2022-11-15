@@ -1,0 +1,21 @@
+.custom-modal {
+  .MuiPaper-root {
+    min-height: 300px;
+    min-width: 500px;
+  }
+
+  .confirmation-message {
+    margin-bottom: 40px;
+
+    span {
+        font-weight: bold;
+    }
+  }
+
+  .MuiDialogContent-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

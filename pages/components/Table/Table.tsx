@@ -17,7 +17,7 @@ type Column = {
   icon: string;
 };
 
-type TableItem = {
+export type TableItem = {
   bucket: string;
   lastModified: string;
   name: string;

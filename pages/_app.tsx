@@ -8,9 +8,18 @@ import { menuOptions } from "./constants/options";
 import { AWSBucket } from "./api/types/AWSBucket";
 import { AWSS3Object } from "./api/types/AWSS3Object";
 
+export type FileData = {
+  protocols: string[];
+  resolutions: string[];
+  videoName: string;
+  bucketName: string;
+};
+
 export default function App({ Component, pageProps }: AppProps) {
   const [buckets, setBuckets] = React.useState<AWSBucket[]>([]);
   const [files, setFiles] = React.useState<AWSS3Object[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [convertStatus, setConvertStatus] = React.useState(null);
 
   const [selectedOption, setSelectedOption] = React.useState<string>(
     menuOptions.VIDEO_FILES.key
@@ -42,6 +51,28 @@ export default function App({ Component, pageProps }: AppProps) {
       });
   }, []);
 
+  const convertFile = React.useCallback((fileData: FileData) => {
+    setLoading(true);
+
+    fetch("/api/convert", {
+      method: "POST",
+      body: JSON.stringify({
+        protocols: fileData.protocols,
+        resolutions: fileData.resolutions,
+        videoName: fileData.videoName,
+        bucketName: fileData.bucketName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setConvertStatus(data);
+      })
+      .catch((data) => {
+        setConvertStatus(data);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <MediaContext.Provider
       value={{
@@ -51,6 +82,11 @@ export default function App({ Component, pageProps }: AppProps) {
         setSelectedOption,
         getFiles,
         files,
+        loading,
+        setLoading,
+        convertFile,
+        convertStatus,
+        setConvertStatus,
       }}
     >
       <Component {...pageProps} />

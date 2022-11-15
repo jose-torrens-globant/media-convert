@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { ListObjectsCommand } from "@aws-sdk/client-s3";
-
 import { bucketList } from "../libs/s3Utils";
 
 type mappedBucketList = {
@@ -26,6 +24,6 @@ export default async function handler(
 
     res.status(200).json(buckets);
   } catch (err) {
-    console.log("Error", err);
+    console.error("Error", err);
   }
 }

@@ -1,0 +1,11 @@
+.options {
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
+
+  .MuiFormGroup-root {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+  }
+}
