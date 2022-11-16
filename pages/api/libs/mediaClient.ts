@@ -32,7 +32,7 @@ const ENDPOINT = {
 // Set the MediaConvert Service Object
 const emcClient = new MediaConvertClient({
   endpoint: process.env.MEDIA_CONVERT_API_ENDPOINT,
-  region: "us-east-1",
+  region: process.env.AWS_REGION,
 });
 export { emcClient };
 // snippet-end:[emc.JavaScript.createclientv3]

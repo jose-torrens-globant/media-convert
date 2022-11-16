@@ -4,8 +4,9 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
 import Drawer from "./components/Drawer/Drawer";
-import Table from "./components/Table/Table";
+
 import FileTable from "./components/FileTable/FileTable";
+import StreamingTable from "./components/StreamingTable/StreamingTable";
 
 import MediaContext from "../context/MediaContext";
 import { menuOptions } from "./constants/options";
@@ -17,7 +18,8 @@ export default function TemporaryDrawer() {
     switch (selectedOption) {
       case menuOptions.VIDEO_FILES.key:
         return <FileTable />;
-
+      case menuOptions.STREAMING_INFO.key:
+        return <StreamingTable />;
       default:
         return null;
     }

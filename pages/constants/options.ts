@@ -7,8 +7,4 @@ export const menuOptions = {
     key: "STREAMING_INFO",
     name: "Streaming Info",
   },
-  PLAYER: {
-    key: "PLAYER",
-    name: "Player",
-  },
 };

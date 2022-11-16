@@ -15,6 +15,9 @@ export type FileData = {
   bucketName: string;
 };
 
+// TODO Fix types across the app
+// TODO Remove if possible all @ts-expect-error 
+
 export default function App({ Component, pageProps }: AppProps) {
   const [buckets, setBuckets] = React.useState<AWSBucket[]>([]);
   const [files, setFiles] = React.useState<AWSS3Object[]>([]);
@@ -39,6 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   const getFiles = React.useCallback((bucketName: string) => {
+    setFiles([]);
     fetch(`/api/storage/files/${bucketName}`)
       .then((response) => response.json())
       .then((data: AWSS3Object[]) => {

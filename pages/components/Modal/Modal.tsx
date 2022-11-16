@@ -21,8 +21,8 @@ type DialogProps = {
   onClose: () => void;
   open: boolean;
   modalTitle: string;
-  onClickActionButton: () => void;
-  titleActionButton: string;
+  onClickActionButton?: () => void;
+  titleActionButton?: string;
   loading?: boolean;
   disableButton?: boolean;
 };
@@ -94,15 +94,18 @@ export default function CustomizedDialogs(props: DialogProps) {
           </Fade>
           {!loading && children}
         </DialogContent>
-        <DialogActions>
-          <Button
-            disabled={disableButton}
-            autoFocus
-            onClick={onClickActionButton}
-          >
-            {titleActionButton}
-          </Button>
-        </DialogActions>
+
+        {onClickActionButton && (
+          <DialogActions>
+            <Button
+              disabled={disableButton}
+              autoFocus
+              onClick={onClickActionButton}
+            >
+              {titleActionButton}
+            </Button>
+          </DialogActions>
+        )}
       </Dialog>
     </div>
   );

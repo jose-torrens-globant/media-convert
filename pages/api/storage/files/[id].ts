@@ -2,8 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { listBucketObjects } from "../../libs/s3Utils";
 
-import { isAVideo } from "../../../constants/regex";
-
 type mappedObjectList = {
   name: string | undefined;
   lastModified: Date | undefined;
@@ -30,7 +28,8 @@ export default async function handler(
         size: file.Size,
         owner: file.Owner?.DisplayName,
         bucket: data.Name,
-      })).filter((file) => isAVideo.test(file?.name || "")) || [];
+        url: `https://${bucketParams.bucketName}.s3.amazonaws.com/${file.Key}`,
+      })) || [];
 
     res.status(200).json(files);
   } catch (err) {

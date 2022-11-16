@@ -1,5 +1,6 @@
 .custom-modal {
   .MuiPaper-root {
+    max-width: 1000px;
     min-height: 300px;
     min-width: 500px;
   }
@@ -8,7 +9,7 @@
     margin-bottom: 40px;
 
     span {
-        font-weight: bold;
+      font-weight: bold;
     }
   }
 

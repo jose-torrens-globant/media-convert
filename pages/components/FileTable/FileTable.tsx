@@ -16,6 +16,8 @@ import Modal from "../Modal/Modal";
 import MediaContext from "../../../context/MediaContext";
 import { formatBytes } from "../../utils/utils";
 
+import { isAVideo } from "../../constants/regex";
+
 const RESOLUTIONS = ["1280x536", "1200x720", "960x720"];
 
 const STREAMING_PROTOCOLS = ["Dash", "HLS"];
@@ -39,6 +41,12 @@ export default function TemporaryDrawer() {
     convertStatus,
     setConvertStatus,
   } = React.useContext(MediaContext);
+
+  const filteredFiles = React.useMemo(
+    /* @ts-expect-error */
+    () => files?.filter((item) => isAVideo.test(item.name)),
+    [files]
+  );
 
   const handleChange = React.useCallback(
     (event: SelectChangeEvent<typeof bucket>) => {
@@ -162,7 +170,7 @@ export default function TemporaryDrawer() {
       minWidth: 170,
       align: "right",
       action: onConvertElement,
-      icon: "trash",
+      icon: "convert",
     },
   ];
 
@@ -188,7 +196,7 @@ export default function TemporaryDrawer() {
       </FormControl>
 
       {/* @ts-expect-error check types */}
-      <Table columns={columns} items={files} />
+      <Table columns={columns} items={filteredFiles} />
 
       <Modal
         open={openModal}
