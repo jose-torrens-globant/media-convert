@@ -3993,7 +3993,7 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-tplayer.js@^1.1.0:
+tplayer.js@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/tplayer.js/-/tplayer.js-1.1.0.tgz#76c7e28ac596e61a650de1f6f19acf283734861c"
   integrity sha512-tpQBkj8On3Kg10v9UKT/sIIyAp3g7LrORsvMPfWaubM2Lzxq+1UW2fVpzwYwtPsSQI04aAFPkSLO9r+mj3FRVA==
