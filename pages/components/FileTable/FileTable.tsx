@@ -116,11 +116,14 @@ export default function TemporaryDrawer() {
       return;
     }
 
+    setOpenModal(false);
+
+    setProtocols([]);
+    setResolutions([]);
+
     if (convertStatus) {
       setConvertStatus?.(null);
     }
-
-    setOpenModal(false);
   }, [loading, setConvertStatus]);
 
   const onConvertElement = React.useCallback((data: any) => {
@@ -201,66 +204,81 @@ export default function TemporaryDrawer() {
       <Modal
         open={openModal}
         onClose={onCloseModal}
-        titleActionButton="Start conversion"
-        onClickActionButton={startConvertion}
+        titleActionButton={convertStatus ? "Close" : "Start video conversion"}
+        onClickActionButton={convertStatus ? onCloseModal : startConvertion}
         modalTitle="Start video conversion"
         loading={loading}
         disableButton={loading || !resolutions.length || !protocols.length}
       >
-        <div className="confirmation-message">
-          You are about to convert this file <span>{selectedVideo?.name}</span>,
-          please select the following options
-        </div>
+        {!convertStatus && (
+          <>
+            <div className="confirmation-message">
+              You are about to convert this file{" "}
+              <span>{selectedVideo?.name}</span>, please select the following
+              options
+            </div>
 
-        <div className="options-container">
-          <FormControl
-            className="options"
-            component="fieldset"
-            variant="standard"
-          >
-            <FormLabel component="legend">Select the resolution</FormLabel>
-            <FormGroup>
-              {RESOLUTIONS.map((item) => (
-                <FormControlLabel
-                  key={item}
-                  control={
-                    <Checkbox
-                      onChange={onResolutionsChange}
-                      value={item}
-                      name="resolutions"
+            <div className="options-container">
+              <FormControl
+                className="options"
+                component="fieldset"
+                variant="standard"
+              >
+                <FormLabel component="legend">Select the resolution</FormLabel>
+                <FormGroup>
+                  {RESOLUTIONS.map((item) => (
+                    <FormControlLabel
+                      key={item}
+                      control={
+                        <Checkbox
+                          onChange={onResolutionsChange}
+                          value={item}
+                          name="resolutions"
+                        />
+                      }
+                      label={item}
                     />
-                  }
-                  label={item}
-                />
-              ))}
-            </FormGroup>
-          </FormControl>
+                  ))}
+                </FormGroup>
+              </FormControl>
 
-          <FormControl
-            className="options"
-            component="fieldset"
-            variant="standard"
-          >
-            <FormLabel component="legend">
-              Select the streaming protocol
-            </FormLabel>
-            <FormGroup>
-              {STREAMING_PROTOCOLS.map((item) => (
-                <FormControlLabel
-                  key={item}
-                  control={
-                    <Checkbox
-                      onChange={onProtocolsChange}
-                      value={item}
-                      name="protocols"
+              <FormControl
+                className="options"
+                component="fieldset"
+                variant="standard"
+              >
+                <FormLabel component="legend">
+                  Select the streaming protocol
+                </FormLabel>
+                <FormGroup>
+                  {STREAMING_PROTOCOLS.map((item) => (
+                    <FormControlLabel
+                      key={item}
+                      control={
+                        <Checkbox
+                          onChange={onProtocolsChange}
+                          value={item}
+                          name="protocols"
+                        />
+                      }
+                      label={item}
                     />
-                  }
-                  label={item}
-                />
-              ))}
-            </FormGroup>
-          </FormControl>
-        </div>
+                  ))}
+                </FormGroup>
+              </FormControl>
+            </div>
+          </>
+        )}
+
+        {convertStatus && (
+          <div
+            className={`confirmation-message ${
+              convertStatus?.error ? "error" : ""
+            } ${convertStatus && !convertStatus?.error ? "success" : ""}`}
+          >
+            {convertStatus?.message}
+          </div>
+        )}
       </Modal>
     </React.Fragment>
   );

@@ -57,13 +57,10 @@ const handlePostRequest = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(201).send({
       message:
         "The job was created successfully, wait 60 sec or check the status in your AWS console",
+      data,
     });
   } catch (error) {
-    console.error(
-      "🚀 ~ file: index.ts ~ line 60 ~ handlePostRequest ~ error",
-      error
-    );
-    res.status(500).end({
+    res.status(500).send({
       error: true,
       message: "An error has occurred, please try again.",
     });

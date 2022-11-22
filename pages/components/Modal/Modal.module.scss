@@ -7,9 +7,18 @@
 
   .confirmation-message {
     margin-bottom: 40px;
+    max-width: 450px;
 
     span {
       font-weight: bold;
+    }
+
+    &.error {
+      color: #d34d4d;
+    }
+
+    &.success {
+      color: #4dd374;
     }
   }
 
